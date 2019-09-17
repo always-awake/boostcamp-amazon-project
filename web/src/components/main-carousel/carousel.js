@@ -1,8 +1,7 @@
 import carouselContents from './carouselContent';
 
 const carousel = () => {
-  return `<div class="carousel__wrapper">
-  <div class="carousel">
+  return `<div class="carousel">
     <div class="carousel__arrow-left">
       <div class="arrow__button">
         <img src="../images/main_carousel_arrow_left.png" alt="">
@@ -14,8 +13,7 @@ const carousel = () => {
       <img src="../images/main_carousel_arrow_right.png" alt="">
     </div>  
     </div>
-  </div>
-</div>`;
+  </div>`;
 };
 
 export default {

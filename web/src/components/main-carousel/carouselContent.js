@@ -13,7 +13,8 @@ const carouselContent = (num) => {
 const carouselContents = () => {
   return `<div class="carousel__contents">
   ${carouselContent(1)}
-
+  ${carouselContent(2)}
+  ${carouselContent(3)}
 </div>`;
 };
 
