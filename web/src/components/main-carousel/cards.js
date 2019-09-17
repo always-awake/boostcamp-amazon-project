@@ -1,5 +1,5 @@
 const cards = () => {
-  return `<div class="main__service__cards">
+  return `<div class="service__cards">
       <div class="service__card">
         <div class="card__img">
           <img src="../images/main_card_1.png" alt="">
