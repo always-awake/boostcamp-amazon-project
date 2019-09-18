@@ -1,7 +1,7 @@
 import cardsComponent from './cards';
 import carouselComponent from './carousel';
 
-const carousel = () => {
+const mainCarousel = () => {
   return `<div class="main__carousel">
           ${cardsComponent.cards()}
           ${carouselComponent.carousel()}
@@ -9,5 +9,5 @@ const carousel = () => {
 };
 
 export default {
-  carousel,
+  mainCarousel,
 };
