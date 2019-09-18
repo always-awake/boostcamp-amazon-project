@@ -1,10 +1,10 @@
-const setCarouselEvent = () => {
-  const carouselList = document.querySelector('.carousel__list');
-  const carouselContents = document.querySelectorAll('.carousel__content');
-  const carouselArrowRight = document.querySelector('.carousel__arrow.right');
-  const carouseArrowlLeft = document.querySelector('.carousel__arrow.left');
+const setCarouselEvent = (Carousel) => {
+  const carouselList = Carousel.querySelector('.carousel__list');
+  const carouselContents = carouselList.querySelectorAll('.carousel__content');
+  const carouselArrowRight = Carousel.querySelector('.carousel__arrow.right');
+  const carouseArrowlLeft = Carousel.querySelector('.carousel__arrow.left');
   // const carouselPagination = document.querySelector('.slide_pagination');
-  const carouselLength = carouselContents.length; // slide length //3
+  const carouselLength = carouselContents.length;
   const carouselWidth = carouselContents[0].offsetWidth;
   const carouselChangeSpeed = 300;
   const initNum = 0;
@@ -17,9 +17,7 @@ const setCarouselEvent = () => {
   const clonedLastCarousel = lastCarousel.cloneNode(true);
   carouselList.appendChild(clonedFirstCarousel);
   carouselList.insertBefore(clonedLastCarousel, carouselList.firstElementChild);
-
   carouselList.style.transform = `translate3d(-${(carouselWidth * (initNum + 1))}px, 0px, 0px)`;
-
   let currentIndex = initNum;
   let currentCarousel = carouselContents[currentIndex];
   currentCarousel.classList.add('slide_active');
