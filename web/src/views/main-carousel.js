@@ -1,10 +1,12 @@
-import mainCarousel from '../components/main-carousel/main-carousel';
-import setCarouselEvent from '../setEvents/main-carousel/carouselEvent';
+import mainCarouselComponent from '../components/main-carousel/main-carousel';
+import setCarouselEvent from '../setEvents/carouselEvent';
 
 const makeMainCarousel = () => {
   const mainCarouselArticle = document.getElementById('main_carousel_article');
-  mainCarouselArticle.innerHTML = mainCarousel.carousel();
-  setCarouselEvent.setCarouselEvent();
+  mainCarouselArticle.innerHTML = mainCarouselComponent.mainCarousel();
+
+  const mainCarousel = mainCarouselArticle.querySelector('.main__carousel');
+  setCarouselEvent.setCarouselEvent(mainCarousel);
 };
 
 export default {
