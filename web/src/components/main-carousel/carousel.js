@@ -1,8 +1,8 @@
-import carouselContents from './carouselContent';
+import carouselList from './carouselList';
 
 const carousel = () => {
   return `<div class="carousel">
-    ${carouselContents.carouselContents()}
+    ${carouselList.carouselList()}
     <div class="carousel__arrow left">
       <div class="arrow__button">
         <img src="../images/main_carousel_arrow_left.png" alt="">

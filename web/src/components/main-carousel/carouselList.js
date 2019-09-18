@@ -10,7 +10,7 @@ const carouselContent = (num) => {
 </div>`;
 };
 
-const carouselContents = () => {
+const carouselList = () => {
   return `<div class="carousel__list">
   ${carouselContent(1)}
   ${carouselContent(2)}
@@ -19,5 +19,5 @@ const carouselContents = () => {
 };
 
 export default {
-  carouselContents,
+  carouselList,
 };
