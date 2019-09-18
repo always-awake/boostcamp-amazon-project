@@ -11,7 +11,7 @@ const carouselContent = (num) => {
 };
 
 const carouselContents = () => {
-  return `<div class="carousel__contents">
+  return `<div class="carousel__list">
   ${carouselContent(1)}
   ${carouselContent(2)}
   ${carouselContent(3)}
