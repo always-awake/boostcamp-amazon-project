@@ -1,10 +1,14 @@
-import miniCarousel from '../components/mini-carousel/mini-carousel';
-// import setCarouselEvent from '../setEvents/main-carousel/carouselEvent';
+import miniCarouselComponent from '../components/mini-carousel/mini-carousel';
+import setCarouselEvent from '../setEvents/carouselEvent';
+import setAutoSlideEvent from '../setEvents/mini-carousel/autoSlideEvent';
 
 const makeMiniCarousel = () => {
-  const mainCarouselArticle = document.getElementById('mini_carousel_article');
-  mainCarouselArticle.innerHTML = miniCarousel.miniCarousel();
-  // setCarouselEvent.setCarouselEvent();
+  const miniCarouselArticle = document.getElementById('mini_carousel_article');
+  miniCarouselArticle.innerHTML = miniCarouselComponent.miniCarousel();
+
+  const miniCarousel = miniCarouselArticle.querySelector('.mini__carousel');
+  setCarouselEvent.setCarouselEvent(miniCarousel);
+  setAutoSlideEvent.setAutoSlideEvent(miniCarousel);
 };
 
 export default {
