@@ -3,7 +3,6 @@
   flex-direction: row
   justify-content: space-between
   align-items: center
-  //width: 83rem 양 옆이 확대됬을 때
   width: 77.5rem
   height: 26.5rem
   margin-left: 2.75rem
@@ -16,32 +15,49 @@
   justify-content: center
   width: 15rem
   height: 21rem
+  position: relative
 
-.service__card:nth-of-type(1)
+.card__selected
+  z-index: 10
+  transform: scale(1.36, 1.262)
+
+.service__card__wrapper
+  position: relative
+
+.card__title
+  position: absolute
+  z-index: 20
+  width: 100%
+  margin-top: 2rem
+  bottom: 2rem
+  text-align: center
+  color: #ffffff
+  font-size: 2rem
+  pointer-events: none
+
+
+.service__card.first
   background: linear-gradient(#0EA5DD, #08A7DF, #1F98C7, #2691BC, #2D88AF)
 
-.service__card:nth-of-type(2)
+.service__card.second
   background: linear-gradient(#FF6138, #FA5B39, #EB443A, #DD2E3A, #D1193A)
 
-.service__card:nth-of-type(3)
+.service__card.third
   background: linear-gradient(#E42064, #DE1E64, #C91366, #B70966, #B70966, #AB0167, #AA0267)
 
-.service__card:nth-of-type(4)
+.service__card.forth
   background: linear-gradient(#36C2B4, #34BFB0, #21A597, #0E9082, #018678, #048578, #008577)
 
-.service__card:nth-of-type(5)
+.service__card.fifth
   background: linear-gradient(#FFC502, #FFB119, #FF912B, #FF7335, #FF6138)
 
 .card__img
   width: 12rem
   height: 12rem
+  margin-bottom: 5rem
+  pointer-events: none
+
 
 .card__img img
   width: 100%
   height: 100%
-  object-fit: contain
-
-.card__title
-  margin-top: 2rem
-  font-size: 1.8rem
-  color: #ffffff
