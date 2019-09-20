@@ -1,25 +1,19 @@
-import mainCarouselComponent from '../components/main-carousel/main-carousel';
-import setCarouselEvent from '../setEvents/carouselEvent';
-import setCardsEvent from '../setEvents/main-carousel/cardEvent';
+import mainCarouselHtml from '../components/main-carousel/main-carousel';
+import Cards from '../events/main-carousel/Cards';
+import Carousel from '../events/main-carousel/Carousel';
 
 class MainCarousel {
   constructor(parentDivId) {
-    this.mainCarouselArticle = document.getElementById(parentDivId);
+    this.miniCarouselArticle = document.getElementById(parentDivId);
+    this.mainCarouseHtml = mainCarouselHtml.mainCarousel();
+    this.makeMainCarouselHtml();
+    this.cards = new Cards.Cards();
+    this.carousel = new Carousel.Carousel(this.cards);
+    this.cards.setCarousel(this.carousel);
   }
 
-  makeCarousel() {
-    this.makeHtml();
-    this.setEvent();
-  }
-
-  makeHtml() {
-    this.mainCarouselArticle.innerHTML = mainCarouselComponent.mainCarousel();
-  }
-
-  setEvent() {
-    const mainCarousel = this.mainCarouselArticle.querySelector('.main__carousel');
-    setCarouselEvent.setCarouselEvent(mainCarousel);
-    setCardsEvent.setCardsEvent();
+  makeMainCarouselHtml() {
+    this.miniCarouselArticle.innerHTML = this.mainCarouseHtml;
   }
 }
 
