@@ -14,9 +14,14 @@ const removeClass = (target, className) => {
 
 };
 
+const setWidth = (target, pxValue) => {
+  target.style.width = `${pxValue}px`;
+};
+
 export {
   setTransition,
   setTranslate,
   addClass,
-  removeClass
+  removeClass,
+  setWidth
 };
