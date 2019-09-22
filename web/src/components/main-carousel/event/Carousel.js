@@ -1,4 +1,4 @@
-import { setTransition, setTranslate } from '../../../utils/setCss';
+import { setTransition, setTranslate, setWidth } from '../../../utils/setCss';
 import { selectAll, select } from '../../../utils/domSelector';
 
 class Carousel  {
@@ -28,7 +28,7 @@ class Carousel  {
   }
 
   initCarouselPosition() {
-    this.carouselList.style.width = `${this.contentWidth * (this.contentCount + this.dummyContentCount)}px`;
+    setWidth(this.carouselList, this.contentWidth * (this.contentCount + this.dummyContentCount));
     const firstContent = this.carouselList.firstElementChild;
     const lastContent = this.carouselList.lastElementChild;
     this.carouselList.appendChild(firstContent.cloneNode(true));
@@ -45,15 +45,17 @@ class Carousel  {
 
   setPrevButtonEvent() {
     this.prevBtn.addEventListener('click', () => {
-      // 1. 첫 번째 페이지일 경우
-      if (this.activeContentIndex >= this.startContentIndex + 1) {
+      // 1. 첫 번째 페이지 이상일 경우
+      if (this.activeContentIndex >= this.startContentIndex) {
         setTransition(this.carouselList, this.changeSpeed);
         setTranslate(this.carouselList, -(this.contentWidth * this.activeContentIndex));
       }
-      // 2. 첫 번쨰 페이지 이상일 경우
+      // 2. 첫 번째 페이지일 경우
       if (this.activeContentIndex === this.startContentIndex) {
         setTimeout(() => {
           setTransition(this.carouselList, this.zeroChangeSpeed);
+          console.log('123123')
+          console.log(-(this.contentWidth * this.contentCount));
           setTranslate(this.carouselList, -(this.contentWidth * this.contentCount));
         }, this.changeSpeed);
         this.activeContentIndex = this.contentCount;
