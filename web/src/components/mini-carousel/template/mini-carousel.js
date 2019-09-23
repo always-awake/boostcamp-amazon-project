@@ -12,7 +12,6 @@ const miniCarousel = () => {
     </div>`;
 };
 
-
 export {
   miniCarousel,
 };

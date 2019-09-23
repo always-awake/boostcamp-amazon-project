@@ -14,7 +14,7 @@ const miniData = {
       }
   ],
   CONTENT: {
-      title: `Amazon Originals,<br>exclusively on Prime Video`,
+      title: `Amazon Originals, exclusively on Prime Video`,
       text: `Prime Video is the only place where you can watch Amazon
              Original series like "The Marvelous Mrs. Maisel", "Tom Clancy's
              Jack Ryan", "Homecoming", and "The Man in the High Castle".`,
