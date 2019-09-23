@@ -1,12 +1,25 @@
-const carouselList = () => {
-  return `<div class="carousel__list">
-    <img class="content" src="../images/mini_carousel_image_1.jpg" alt="">
-    <img class="content" src="../images/mini_carousel_image_2.jpg" alt="">
-    <img class="content" src="../images/mini_carousel_image_3.jpg" alt="">
-    <img class="content" src="../images/mini_carousel_image_4.jpg" alt="">
-  </div>`;
+import { miniData } from '../../../assets/mini-carousel-data';
+
+const carouselContent = ({ imgUrl }) => {
+  return `
+  <img class="content" src="${imgUrl}" alt="">
+  `;
 };
 
-export default {
+const contentsHtml = () => {
+  let contentsHtml = '';
+  for (let data of miniData['CAROUSEL']) {
+    contentsHtml += carouselContent(data);
+  }
+  return contentsHtml;
+};
+
+const carouselList = () => {
+  return `<div class="carousel__list">
+            ${contentsHtml()}
+          </div>`;
+};
+
+export {
   carouselList,
 };

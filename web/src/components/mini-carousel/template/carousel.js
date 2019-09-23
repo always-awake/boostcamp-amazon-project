@@ -1,4 +1,4 @@
-import carouselList from './carouselList';
+import { carouselList } from './carouselList';
 
 const carousel = () => {
   return `<div class="carousel">
@@ -7,7 +7,7 @@ const carousel = () => {
         <img src="../images/mini_carousel_arrow_left.png" alt="">
       </div>
     </div>
-    ${carouselList.carouselList()}
+    ${carouselList()}
     <div class="carousel__button next">
     <div class="button">
       <img src="../images/mini_carousel_arrow_right.png" alt="">
@@ -16,6 +16,6 @@ const carousel = () => {
   </div>`;
 };
 
-export default {
+export {
   carousel,
 };

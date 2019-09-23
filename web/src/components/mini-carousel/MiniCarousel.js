@@ -1,4 +1,4 @@
-import miniCarouselComponent from './template/mini-carousel';
+import { miniCarousel } from './template/mini-carousel';
 import { Carousel } from './event/Carousel';
 
 class MiniCarousel {
@@ -8,7 +8,7 @@ class MiniCarousel {
   }
 
   init() {
-    this.miniCarouseHtml = miniCarouselComponent.miniCarousel();
+    this.miniCarouseHtml = miniCarousel();
     this.render();
     const carousel = new Carousel();
     carousel.init();
