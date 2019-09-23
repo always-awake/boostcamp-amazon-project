@@ -71,11 +71,13 @@ class Cards {
 
   setPrevActiveByIndex(dotIndex) {
     if (dotIndex === -1) {
-      dotIndex += 1;
+      dotIndex = 16;
     } else if (dotIndex === 17) {
-      dotIndex -= 1;
+      dotIndex = 0;
     }
     this.prevActiveDot  = this.dots[dotIndex];
+    console.log('====')
+    console.log(this.prevActiveDot)
     const cardWrapper = this.prevActiveDot.parentNode.parentNode;
     this.activeCard = cardWrapper.querySelector('.card');
   }

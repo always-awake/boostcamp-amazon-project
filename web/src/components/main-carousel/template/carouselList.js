@@ -1,36 +1,42 @@
-const carouselContent = (num) => {
-  return `<div class="content">
-    <div class="content__img"></div>
-    <div class="content__text">
-    <div class="text__tag"></div>
-    <div class="text__title">${num}</div>
-    <div class="text__subtitle"></div>
-    <div class="text__explore__link"></div>
-    </div>
-</div>`;
+import { mainData } from '../../../assets/main-carousel-data';
+
+const carouselContent = ({ imgUrl, tagContent, tagColor, title, content, link, linkTitle }) => {
+  return `<div class="content" style="background-image: url(${imgUrl})">
+        <div class="text__tag">
+          <div class="tag__text" style="background: ${tagColor};">
+           ${tagContent}
+          </div>
+        </div>
+        <div class="text__title">
+          ${title}
+        </div>
+        <div class="text__content">
+          ${content}
+        </div>
+        <div class="text__link">
+          <a href="${link}"> ${linkTitle} <img src="../images/mini_carousel_text_link_arrow.png" alt=""></a>
+        </div>
+      </div>`;
+};
+
+const contentsHtml = () => {
+  let contentsHtml = '';
+  for (let key of Object.keys(mainData)) {
+    for (let data of mainData[key]['data']) {
+      contentsHtml += `
+      ${carouselContent(data)}
+      `
+    }
+  }
+  return contentsHtml;
 };
 
 const carouselList = () => {
   return `<div class="carousel__list">
-  ${carouselContent(1)}
-  ${carouselContent(2)}
-  ${carouselContent(3)}
-  ${carouselContent(4)}
-  ${carouselContent(5)}
-  ${carouselContent(6)}
-  ${carouselContent(7)}
-  ${carouselContent(8)}
-  ${carouselContent(9)}
-  ${carouselContent(10)}
-  ${carouselContent(11)}
-  ${carouselContent(12)}
-  ${carouselContent(13)}
-  ${carouselContent(14)}
-  ${carouselContent(15)}
-  ${carouselContent(16)}
-  ${carouselContent(17)}
+  ${contentsHtml()}
 </div>`;
 };
+
 
 export default {
   carouselList,

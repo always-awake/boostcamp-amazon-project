@@ -48,19 +48,17 @@ class Carousel  {
       // 1. 첫 번째 페이지 이상일 경우
       if (this.activeContentIndex >= this.startContentIndex) {
         setTransition(this.carouselList, this.changeSpeed);
-        setTranslate(this.carouselList, -(this.contentWidth * this.activeContentIndex));
+        setTranslate(this.carouselList, -1 * (this.contentWidth * this.activeContentIndex));
       }
       // 2. 첫 번째 페이지일 경우
       if (this.activeContentIndex === this.startContentIndex) {
         setTimeout(() => {
           setTransition(this.carouselList, this.zeroChangeSpeed);
-          console.log('123123')
-          console.log(-(this.contentWidth * this.contentCount));
           setTranslate(this.carouselList, -(this.contentWidth * this.contentCount));
         }, this.changeSpeed);
         this.activeContentIndex = this.contentCount;
       }
-      this.cards.setPrevActiveByIndex(this.activeContentIndex); // Dot과 Card 설정
+      this.cards.setPrevActiveByIndex(this.activeContentIndex);
       this.activeContent = this.contents[this.activeContentIndex -= 1];
       this.cards.activateCard(this.activeContentIndex)
     });

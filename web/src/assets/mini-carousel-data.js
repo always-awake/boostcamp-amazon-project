@@ -1,0 +1,7 @@
+const miniData = {
+
+};
+
+export {
+  miniData
+}

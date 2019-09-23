@@ -1,3 +1,6 @@
+import { mainData } from '../../../assets/main-carousel-data';
+import { miniData } from '../../../assets/mini-carousel-data';
+
 const cards = () => {
   return /* html */`<div class="cards">
       <div class="card__wrapper">
@@ -10,10 +13,7 @@ const cards = () => {
           Ship
         </div>
         <div class="card__dot__list card__dot__list__selected">
-         <div class="dot dot__selected"></div>
-         <div class="dot"></div>
-         <div class="dot"></div>
-         <div class="dot"></div>
+         ${dotsHtml(mainData['SHIP'])}
         </div>
       </div>
       <div class="card__wrapper">
@@ -26,11 +26,7 @@ const cards = () => {
           Stream
         </div>
         <div class="card__dot__list">
-         <div class="dot"></div>
-         <div class="dot"></div>
-         <div class="dot"></div>
-         <div class="dot"></div>
-         <div class="dot"></div>
+         ${dotsHtml(mainData['STREAM'])}
         </div>
       </div>
       <div class="card__wrapper">
@@ -43,10 +39,7 @@ const cards = () => {
           Shop
         </div>
         <div class="card__dot__list">
-         <div class="dot"></div>
-         <div class="dot"></div>
-         <div class="dot"></div>
-         <div class="dot"></div>
+         ${dotsHtml(mainData['SHOP'])}
         </div>
       </div>
       <div class="card__wrapper">
@@ -59,8 +52,7 @@ const cards = () => {
           Read
         </div>
         <div class="card__dot__list">
-         <div class="dot"></div>
-         <div class="dot"></div>
+         ${dotsHtml(mainData['READ'])}
         </div>
       </div>
       <div class="card__wrapper">
@@ -73,11 +65,20 @@ const cards = () => {
           More
         </div>
         <div class="card__dot__list">
-         <div class="dot"></div>
-         <div class="dot"></div>
+         ${dotsHtml(mainData['MORE'])}
         </div>
       </div>
   </div>`;
+};
+
+const dotsHtml = (dataList) => {
+  let dotsHtml = '';
+  for (let data of dataList['data']) {
+    dotsHtml += `
+      <div class="dot"></div>
+    `;
+  }
+  return dotsHtml;
 };
 
 export default {
