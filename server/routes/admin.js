@@ -95,6 +95,30 @@ router.get('/mini/text', function(req, res) {
   });
 });
 
+// 메인 컨텐츠 목록
+router.get('/main/contents', function(req, res) {
+  connection.query(`SELECT * FROM main_contents`, function(err, rows) {
+    if (!err) {
+      console.log('The solution is: ', rows);
+      res.send(rows);
+    } else {
+      console.log('Error while performing Query.', err);
+    }
+  });
+});
+
+// 개별 메인 컨텐츠 목록
+router.get('/main/contents/:pk', function(req, res) {
+  const contentPk = req.params.pk;
+  connection.query(`SELECT * FROM main_contents WHERE pk=${contentPk};`, function(err, rows) {
+    if (!err) {
+      console.log('The solution is: ', rows);
+      res.send(rows);
+    } else {
+      console.log('Error while performing Query.', err);
+    }
+  });
+});
 
 
 
