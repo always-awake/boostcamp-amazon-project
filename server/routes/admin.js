@@ -70,6 +70,19 @@ router.get('/mini/contents', function(req, res) {
   });
 });
 
+// 개별 미니 개별 컨텐츠 조회
+router.get('/mini/contents/:pk', function(req, res) {
+  const contentPk = req.params.pk;
+  connection.query(`SELECT * FROM mini_contents WHERE pk=${contentPk};`, function(err, rows) {
+    if (!err) {
+      console.log('The solution is: ', rows);
+      res.send(rows);
+    } else {
+      console.log('Error while performing Query.', err);
+    }
+  });
+});
+
 // 미니 텍스트 목록
 router.get('/mini/text', function(req, res) {
   connection.query(`SELECT * FROM mini_text`, function(err, rows) {
