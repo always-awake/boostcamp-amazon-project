@@ -26,9 +26,25 @@ router.get('/main', function(req, res) {
   });
 });
 
+// 각 테이블 조회 (by table name)
+router.get('/:tableName', function(req, res) {
+  const tableName = req.params.tableName;
+  connection.query(`SELECT * FROM ${tableName};`, function(err, rows) {
+    if (!err) {
+      const fieldList = Object.keys(rows[0]);
+      console.log(rows);
+      console.log(rows.length);
+      // const dataLength = rows.length;
+      res.render('table', {tableName: tableName, fieldList: fieldList, dataList: rows, dataLength: rows.length});
+} else {
+      console.log('Error while performing Query.', err);
+    }
+  });
+});
+
 // 유저 목록 조회
 router.get('/users', function(req, res) {
-  connection.query('SELECT pk, id, name, is_superuser FROM users;', function(err, rows) {
+  connection.query(`SELECT pk, id, name, is_superuser FROM users;`, function(err, rows) {
     if (!err) {
       console.log('The solution is: ', rows);
       res.send(rows);
