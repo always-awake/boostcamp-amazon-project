@@ -23,7 +23,7 @@ router.get('/main', function(req, res) {
 
 // 유저 목록 조회
 router.get('/users', function(req, res) {
-  connection.query('SELECT * FROM users;', function(err, rows) {
+  connection.query('SELECT pk, id, name, is_supseruser FROM users;', function(err, rows) {
     if (!err) {
       console.log('The solution is: ', rows);
       res.send(rows);
@@ -32,6 +32,20 @@ router.get('/users', function(req, res) {
     }
   });
 });
+
+// 개별 유저 목록 조회
+router.get('/users/:pk', function(req, res) {
+  const userPk = req.params.pk;
+  connection.query(`SELECT * FROM users WHERE pk=${userPk};`, function(err, rows) {
+    if (!err) {
+      console.log('The solution is: ', rows);
+      res.send(rows);
+    } else {
+      console.log('Error while performing Query.', err);
+    }
+  });
+});
+
 
 
 
