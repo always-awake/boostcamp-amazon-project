@@ -58,6 +58,29 @@ router.get('/main/categories', function(req, res) {
   });
 });
 
+// 미니 컨텐츠 목록
+router.get('/mini/contents', function(req, res) {
+  connection.query(`SELECT * FROM mini_contents`, function(err, rows) {
+    if (!err) {
+      console.log('The solution is: ', rows);
+      res.send(rows);
+    } else {
+      console.log('Error while performing Query.', err);
+    }
+  });
+});
+
+// 미니 텍스트 목록
+router.get('/mini/text', function(req, res) {
+  connection.query(`SELECT * FROM mini_text`, function(err, rows) {
+    if (!err) {
+      console.log('The solution is: ', rows);
+      res.send(rows);
+    } else {
+      console.log('Error while performing Query.', err);
+    }
+  });
+});
 
 
 
