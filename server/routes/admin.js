@@ -11,10 +11,15 @@ router.get('/', function(req, res) {
 
 // 메인화면
 router.get('/main', function(req, res) {
-  connection.query('SHOW TABLES;', function(err, rows, fields) {
+  connection.query('SHOW TABLES;', function(err, rows) {
+    const tableList = [];
     if (!err) {
-      console.log('The solution is: ', rows);
-      res.send(rows);
+      const databaseInfo = Object.keys(rows[0])[0];
+      const databaseName = databaseInfo.substring(10, databaseInfo.length).toUpperCase();
+      for (let table of rows) {
+        tableList.push(table[databaseInfo]);
+      }
+      res.render('main', {tableList: tableList, databaseName: databaseName});
     } else {
       console.log('Error while performing Query.', err);
     }
