@@ -2,3 +2,6 @@
 web/node_modules
 web/dist
 web/images/.DS_Store
+
+server/node_modules
+server/config/db.js

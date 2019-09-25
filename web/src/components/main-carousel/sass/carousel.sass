@@ -1,0 +1,82 @@
+.main__carousel
+  .carousel
+    display: flex
+    flex-direction: row
+    justify-items: center
+    width: 105rem
+    height: 40rem
+    overflow: hidden
+
+  .carousel__button
+    display: flex
+    align-items: center
+    height: 40rem
+    position: absolute
+    z-index: 100
+    cursor: pointer
+    .button
+      display: flex
+      align-items: center
+      justify-content: center
+      width: 6rem
+      height: 6rem
+      background-color: #AAB7B8
+      border-radius: 50%
+
+    .button img
+      width: 2.5rem
+      height: 2.5rem
+      object-fit: contain
+
+  .carousel__button.prev
+    left: 0
+    margin-left: 11rem
+
+  .carousel__button.next
+    right: 0
+    margin-right: 11rem
+
+  .carousel__list
+    display: flex
+    height: 40rem
+
+  .content
+    display: flex
+    flex-direction: column
+    padding-top: 6rem
+    padding-left: 50rem
+    width: 105rem
+    height: 40rem
+    font-size: 200px
+    background-repeat: no-repeat
+    background-position: -15rem 0.5rem
+    .text__tag
+      display: flex
+      width: 40rem
+      font-size: 1.6rem
+      font-weight: bold
+      color: white
+    .tag__text
+      height: 3rem
+      line-height: 3rem
+      padding-right: 1rem
+      padding-left: 1rem
+    .text__title
+      display: flex
+      margin-top: 2.5rem
+      font-size: 3rem
+      margin-bottom: 3rem
+      width: 40rem
+    .text__content
+      font-size: 2rem
+      margin-bottom: 3rem
+      width: 40rem
+    .text__link
+      font-size: 1.5rem
+      font-weight: bolder
+    .text__link a
+      text-decoration: none
+      color: black
+    .text__link img
+      width: 1rem
+      height: 1rem

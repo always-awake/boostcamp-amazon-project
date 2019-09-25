@@ -1,0 +1,27 @@
+doctype html
+head
+    meta(charset='UTF-8')
+    meta(name='viewport' content='width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0')
+    meta(http-equiv='X-UA-Compatible' content='ie=edge')
+    style
+        include ../public/css/table.css
+    script(src='/js/table.js')
+    title Amazon Admin
+header
+    div(class='header__title') Amazon Administration
+    div(class='header__content')
+        div(class='header__user__info') Welcome! Admin
+        div(class='header__menu')
+            div(class='menu__button password') Change Password
+            div(class='menu__button logout') logout
+section(class="table")
+    div(class="table__title")
+        div(class="title") #{tableName}
+    div(class="table__fields")
+        div(class="fields__list")
+            each field in fieldList
+                div(class="field")=field
+        each data in dataList
+            div(class="data__list")
+                each field in fieldList
+                    div(class="data")=data[field]
