@@ -50,4 +50,10 @@ header {
 
 .menu__button.logout {
   margin-left: 1rem;
+  cursor: pointer;
+}
+
+.menu__button.logout:hover {
+  color: #FFA624;
+  text-decoration: underline;
 }
