@@ -1,25 +1,55 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const session = require("express-session");
+const redisStore = require('connect-redis')(session);
+const redis = require('redis');
+const passport = require("passport");
+const logger = require('morgan');
+const flash = require('connect-flash');
 
-var indexRouter = require('./routes/index');
-var adminRouter = require('./routes/admin');
+const passportConfig = require("./config/passport");
 
-var app = express();
+const userRouter = require('./routes/users');
+const adminRouter = require('./routes/admin');
+
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+// middleware
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser('login-secret'));
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser('user-auth-cookie'));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
+// session - redis
+const client = redis.createClient(6379, 'localhost');
+app.use(session({
+  secret: "user-auth-session",
+  resave: false,
+  saveUninitialized: true,
+  expires: new Date(Date.now() + 10000),
+  store: new redisStore({
+    client: client,
+    ttl: 200,
+  }),
+}));
+
+//flash
+app.use(flash());
+
+// passport
+app.use(passport.initialize());
+app.use(passport.session());
+passportConfig(passport);
+
+// router
+app.use('/users', userRouter);
 app.use('/admin', adminRouter);
 
 // catch 404 and forward to error handler

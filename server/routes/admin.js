@@ -2,28 +2,58 @@ const dbConfig = require('../config/db.js');
 const express = require('express');
 const router = express.Router();
 const mysql = require('mysql2');
+const passport = require('passport');
 
 const connection = mysql.createPool(dbConfig);
 
 router.get('/', function(req, res) {
+  console.log(req)
   res.send('어드민 페이지');
+});
+
+// 로그인 페이지
+router.get('/login', function(req, res) {
+  const { error } = req.flash();
+  let errorMsg = null;
+  if (error) {
+    errorMsg = error[0];
+  }
+  res.render('login', {errorMsg: errorMsg});
+});
+
+router.post('/login', passport.authenticate('local', {
+  successRedirect: '/admin/main',
+  failureRedirect: '/admin/login',
+  failureFlash: true,
+  successFlash:true
+}));
+
+router.get('/logout', function(req, res) {
+  req.logout();
+  req.session.save(() => {
+    res.redirect('/admin/login');
+  })
 });
 
 // 메인화면
 router.get('/main', function(req, res) {
-  connection.query('SHOW TABLES;', function(err, rows) {
-    const tableList = [];
-    if (!err) {
-      const databaseInfo = Object.keys(rows[0])[0];
-      const databaseName = databaseInfo.substring(10, databaseInfo.length).toUpperCase();
-      for (let table of rows) {
-        tableList.push(table[databaseInfo]);
+  if (req.user !== undefined) {
+    connection.query('SHOW TABLES;', function(err, rows) {
+      const tableList = [];
+      if (!err) {
+        const databaseInfo = Object.keys(rows[0])[0];
+        const databaseName = databaseInfo.substring(10, databaseInfo.length).toUpperCase();
+        for (let table of rows) {
+          tableList.push(table[databaseInfo]);
+        }
+        res.render('main', {tableList: tableList, databaseName: databaseName, userName: req.user.name});
+      } else {
+        console.log('Error while performing Query.', err);
       }
-      res.render('main', {tableList: tableList, databaseName: databaseName});
-    } else {
-      console.log('Error while performing Query.', err);
-    }
-  });
+    });
+  } else {
+    res.send('허용되지 않은 접근임');
+  }
 });
 
 // 각 테이블 조회 (by table name)
@@ -32,9 +62,6 @@ router.get('/:tableName', function(req, res) {
   connection.query(`SELECT * FROM ${tableName};`, function(err, rows) {
     if (!err) {
       const fieldList = Object.keys(rows[0]);
-      console.log(rows);
-      console.log(rows.length);
-      // const dataLength = rows.length;
       res.render('table', {tableName: tableName, fieldList: fieldList, dataList: rows, dataLength: rows.length});
 } else {
       console.log('Error while performing Query.', err);
