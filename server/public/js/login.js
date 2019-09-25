@@ -9,5 +9,8 @@ const setLoginEvent = () => {
     const loginForm = loginSection.querySelector('.login__form');
     loginForm.submit();
   });
+
+  const idInput = loginSection.querySelector('input');
+  idInput.focus();
 };
 
