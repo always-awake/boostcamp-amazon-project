@@ -69,6 +69,11 @@ input[type="search"] {
   -webkit-appearance: none;
 }
 
+.buttons {
+  display: flex;
+  flex-direction: column;
+}
+
 .login__button {
   line-height: 4rem;
   text-align: center;
@@ -80,7 +85,19 @@ input[type="search"] {
   border-radius: 0.5rem;
   margin-top: 2.6rem;
   cursor: pointer;
-  margin-bottom: 2.5rem;
+}
+
+.signup__link {
+  color: #232F3E;
+  font-size: 1.5rem;
+  text-align: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+
+.signup__link:hover {
+  text-decoration: underline;
 }
 
 .error__msg {

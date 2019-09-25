@@ -10,7 +10,9 @@ const setLoginEvent = () => {
     loginForm.submit();
   });
 
-  const idInput = loginSection.querySelector('input');
-  idInput.focus();
+  const signUpButton = loginSection.querySelector('.signup__link');
+  signUpButton.addEventListener('click', () => {
+    window.location.href = `http://localhost:3000/admin/accounts`;
+  });
 };
 

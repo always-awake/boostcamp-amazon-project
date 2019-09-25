@@ -1,0 +1,22 @@
+@import "/css/common.css";
+@import "/css/login.css";
+
+.signup__section {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10rem;
+}
+
+.signup__button {
+  line-height: 4rem;
+  text-align: center;
+  width: 7rem;
+  height: 4rem;
+  font-size: 1.5rem;
+  color: white;
+  background-color: #232F3E;
+  border-radius: 0.5rem;
+  margin-top: 2.6rem;
+  cursor: pointer;
+  margin-bottom: 2.5rem;
+}

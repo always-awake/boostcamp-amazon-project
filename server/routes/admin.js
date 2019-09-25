@@ -11,12 +11,21 @@ router.get('/', function(req, res) {
   res.send('어드민 페이지');
 });
 
+// 회원가입
+router.get('/accounts', function(req, res) {
+  let errorMsg = null;
+  res.render('signup', {errorMsg: errorMsg});
+});
+
 // 로그인 페이지
 router.get('/login', function(req, res) {
   const { error } = req.flash();
   let errorMsg = null;
   if (error) {
     errorMsg = error[0];
+    if (errorMsg === 'Missing credentials') {
+      errorMsg = '아이디 또는 비밀번호를 다시 입력해주세요.'
+    }
   }
   res.render('login', {errorMsg: errorMsg});
 });
@@ -25,7 +34,6 @@ router.post('/login', passport.authenticate('local', {
   successRedirect: '/admin/main',
   failureRedirect: '/admin/login',
   failureFlash: true,
-  successFlash:true
 }));
 
 router.get('/logout', function(req, res) {
@@ -62,7 +70,13 @@ router.get('/:tableName', function(req, res) {
   connection.query(`SELECT * FROM ${tableName};`, function(err, rows) {
     if (!err) {
       const fieldList = Object.keys(rows[0]);
-      res.render('table', {tableName: tableName, fieldList: fieldList, dataList: rows, dataLength: rows.length});
+      res.render('table', {
+        tableName: tableName,
+        fieldList: fieldList,
+        dataList: rows,
+        dataLength: rows.length,
+        userName: req.user.name,
+      });
 } else {
       console.log('Error while performing Query.', err);
     }
