@@ -6,12 +6,16 @@ window.onload = () => {
 const setMainEvent = () => {
   const database = document.querySelector('.database');
   const tableList = database.querySelector('.table__list');
-  const databaseName = database.querySelector('.title').innerText.toLowerCase();
   tableList.addEventListener('click', (e) => {
-    if (e.target !== e.currentTarget) {
+    if (e.target.className === 'table__name') {
       const tableName = e.target.innerText;
-      window.location.href = `http://localhost:3000/admin/${databaseName}/${tableName}`;
+      window.location.href = `http://localhost:3000/admin/${tableName}`;
     }
+  });
+
+  const headerTitle = document.querySelector('.header__title');
+  headerTitle.addEventListener('click', () => {
+    window.location.href = `http://localhost:3000/admin/main`;
   })
 };
 
