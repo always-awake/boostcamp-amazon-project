@@ -13,7 +13,7 @@ block section
             div(class="tableName") #{tableName}
         div(class="detail__sub__title")
             div(class="title") Field List
-        form(class="detail__form" action="" method="PUT")
+        form(class="detail__form" action='/admin/' + tableName + '/' + data['pk'] method="POST")
             each field in fields
                 div(class="form__field")
                     div(class="field__title")=field
@@ -21,18 +21,18 @@ block section
                         div(class="field__no__input")=data[field]
                     else if field === 'is_superuser'
                         if data[field]
-                            input(type="checkbox" class="field__input__super" checked)
+                            input(name="is_superuser" type="checkbox" class="field__input__super" checked)
                         else
-                            input(type="checkbox" class="field__input__super")
+                            input(name="is_superuser" type="checkbox" class="field__input__super" unchecked)
                     else if data[field].length <= 40
                         div(class="field__input__short")
-                            input(value=data[field])
+                            input(name=field value=data[field])
                     else if data[field].length > 40
                         div(class="field__input__long")
-                            textarea(contenteditable="true" type="text")=data[field]
-        div(class="detail__buttons")
-            div(class="button delete") DELETE
-            div(class="button__group")
-                div(class="button save") SAVE
-                div(class="button back") BACK
+                            textarea(name=field contenteditable="true" type="text")=data[field]
+            div(class="detail__buttons")
+                div(class="button delete") DELETE
+                div(class="button__group")
+                    div(class="button save") PUT
+                    div(class="button back") BACK
 

@@ -1,3 +1,4 @@
+const { makeDataUpdateQuery } = require('./utils/query.js');
 const dbConfig = require('../config/db.js');
 const express = require('express');
 const router = express.Router();
@@ -82,6 +83,21 @@ router.get('/:tableName/:pk', function(req, res) {
           data: row[0],
           userName: req.user.name,
         });
+      } else {
+        console.log('데이터베이스 오류', err);
+      }
+    });
+  } else {
+    res.send('허용되지 않은 접근임');
+  }
+});
+
+// 개별 데이터 수정
+router.post('/:tableName/:pk', function(req, res) {
+  if (req.user !== undefined) {
+    connection.query(makeDataUpdateQuery(req.params, req.body), function(err, row) {
+      if (!err) {
+        res.redirect(`/admin/${req.params.tableName}`);
       } else {
         console.log('데이터베이스 오류', err);
       }
