@@ -17,7 +17,7 @@ router.get('/accounts', function(req, res) {
   res.render('signup', {errorMsg: errorMsg});
 });
 
-// 로그인 페이지
+// 로그인 폼 로딩
 router.get('/login', function(req, res) {
   const { error } = req.flash();
   let errorMsg = null;
@@ -30,12 +30,14 @@ router.get('/login', function(req, res) {
   res.render('login', {errorMsg: errorMsg});
 });
 
+// 로그인
 router.post('/login', passport.authenticate('local', {
   successRedirect: '/admin/main',
   failureRedirect: '/admin/login',
   failureFlash: true,
 }));
 
+// 로그아웃
 router.get('/logout', function(req, res) {
   req.logout();
   req.session.save(() => {
@@ -54,7 +56,11 @@ router.get('/main', function(req, res) {
         for (let table of rows) {
           tableList.push(table[databaseInfo]);
         }
-        res.render('main', {tableList: tableList, databaseName: databaseName, userName: req.user.name});
+        res.render('main', {
+          tableList: tableList,
+          databaseName: databaseName,
+          userName: req.user.name
+        });
       } else {
         console.log('Error while performing Query.', err);
       }
@@ -64,9 +70,30 @@ router.get('/main', function(req, res) {
   }
 });
 
+// 개별 데이터 조회
+router.get('/:tableName/:pk', function(req, res) {
+  const { tableName, pk, } = req.params;
+  if (req.user !== undefined) {
+    connection.query(`SELECT * FROM ${tableName} WHERE pk=${pk};`, function(err, row) {
+      if (!err) {
+        res.render('detail', {
+          tableName: tableName,
+          fields: Object.keys(row[0]),
+          data: row[0],
+          userName: req.user.name,
+        });
+      } else {
+        console.log('데이터베이스 오류', err);
+      }
+    });
+  } else {
+    res.send('허용되지 않은 접근임');
+  }
+});
+
 // 각 테이블 조회 (by table name)
 router.get('/:tableName', function(req, res) {
-  const tableName = req.params.tableName;
+  const { tableName } = req.params;
   connection.query(`SELECT * FROM ${tableName};`, function(err, rows) {
     if (!err) {
       const fieldList = Object.keys(rows[0]);
@@ -78,7 +105,7 @@ router.get('/:tableName', function(req, res) {
         userName: req.user.name,
       });
 } else {
-      console.log('Error while performing Query.', err);
+      console.log('데이터베이스 오류', err);
     }
   });
 });

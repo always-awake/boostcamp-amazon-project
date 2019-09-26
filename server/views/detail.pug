@@ -10,16 +10,30 @@ block title
     title Amazon Admin
 block section
     section(class="detail__section")
-        div(class="form__title") Admin Sign up
-        form(class="login__form" action="/admin/login" method="POST")
-            div(class="input__title") User Id:
-            div(class="input")
-                input(name="id")
-            div(class="input__title") Password:
-            div(class="input")
-                input(name="password")
-            div(class="input__title") Confirm Password:
-            div(class="input")
-                input(name="re_password")
-            div(class="signup__button") Sign up
+        div(class="detail__title") Change
+            div(class="tableName") #{tableName}
+        div(class="detail__sub__title")
+            div(class="title") Field List
+        form(class="detail__form" action="" method="PUT")
+            each field in fields
+                div(class="form__field")
+                    div(class="field__title")=field
+                    if field.includes('pk')
+                        div(class="field__no__input")=data[field]
+                    else if field === 'is_superuser'
+                        if data[field]
+                            input(type="checkbox" class="field__input__super" checked)
+                        else
+                            input(type="checkbox" class="field__input__super")
+                    else if data[field].length <= 40
+                        div(class="field__input__short")
+                            input(value=data[field])
+                    else if data[field].length > 40
+                        div(class="field__input__long")
+                            textarea(contenteditable="true" type="text")=data[field]
+        div(class="detail__buttons")
+            div(class="button delete") DELETE
+            div(class="button__group")
+                div(class="button save") SAVE
+                div(class="button back") BACK
 
