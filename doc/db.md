@@ -15,7 +15,9 @@ CREATE TABLE users (
 
 CREATE TABLE card_categories (
     pk bigint(20) NOT NULL AUTO_INCREMENT,
+    user_pk bigint(20) NOT NULL,
     name varchar(30),
+    FOREIGN KEY (user_pk) REFERENCES users(pk) ON UPDATE CASCADE,
     PRIMARY KEY (pk)
 );
 
@@ -58,18 +60,6 @@ CREATE TABLE mini_text (
 
 ## 데이터 초기화 스크립
 ```
-// 카테고리 추가
-INSERT INTO card_categories(name) VALUES('Ship');
-
-INSERT INTO card_categories(name) VALUES('Stream');
-
-INSERT INTO card_categories(name) VALUES('Shop');
-
-INSERT INTO card_categories(name) VALUES('Read');
-
-INSERT INTO card_categories(name) VALUES('More');
-
-// 유저 추가
 INSERT INTO users(id, password, name, is_superuser) 
 VALUES('user1', 'admin12345', 'user1', True);
 
@@ -79,7 +69,36 @@ VALUES('user2', 'admin12345', 'user2', False);
 INSERT INTO users(id, password, name, is_superuser) 
 VALUES('user3', 'admin12345', 'user3', False);
 
-// 미니 텍스트 추가
+INSERT INTO card_categories(user_pk, name) 
+VALUES(
+    (SELECT pk FROM users WHERE pk = 1),
+    'Ship'
+);
+
+INSERT INTO card_categories(user_pk, name)
+VALUES(
+    (SELECT pk FROM users WHERE pk = 1),
+    'Stream'
+);
+
+INSERT INTO card_categories(user_pk, name)
+VALUES(
+    (SELECT pk FROM users WHERE pk = 1),
+    'Shop'
+);
+
+INSERT INTO card_categories(user_pk, name)
+VALUES(
+    (SELECT pk FROM users WHERE pk = 1),
+    'Read'
+);
+
+INSERT INTO card_categories(user_pk, name)
+VALUES(
+    (SELECT pk FROM users WHERE pk = 1),
+    'More'
+);
+
 INSERT INTO mini_text(
     user_pk, title, text, link_title, link
 ) 
@@ -91,7 +110,6 @@ VALUES(
     '#'
 );
 
-// 미니 컨텐츠 추가
 INSERT INTO mini_contents(user_pk, img_url) 
 VALUES(
     (SELECT pk FROM users WHERE pk = 2), 
@@ -116,7 +134,6 @@ VALUES(
     '/images/mini/mini_4.jpg'
 );
 
-// 메인 컨텐츠 추가 - Ship
 INSERT INTO main_contents(
     user_pk, category_pk, img_url, tag_content, tag_color, title,
     content, link, link_title
@@ -132,6 +149,7 @@ VALUES(
     '#',
     'Explore Prime Deliver'
 );
+
 INSERT INTO main_contents(
     user_pk, category_pk, img_url, tag_content, tag_color, title,
     content, link, link_title
@@ -147,6 +165,7 @@ VALUES(
     '#',
     'Explore Amazon Originals'
 );
+
 INSERT INTO main_contents(
     user_pk, category_pk, img_url, tag_content, tag_color, title,
     content, link, link_title
@@ -162,6 +181,7 @@ VALUES(
     '#',
     'Explore Release-Date Delivery'
 );
+
 INSERT INTO main_contents(
     user_pk, category_pk, img_url, tag_content, tag_color, title,
     content, link, link_title
@@ -178,7 +198,6 @@ VALUES(
     'Explore Release-Date Delivery'
 );
 
-// 메인 컨텐츠 추가 - Stream
 INSERT INTO main_contents(
     user_pk, category_pk, img_url, tag_content, tag_color, title,
     content, link, link_title
@@ -194,6 +213,7 @@ VALUES(
     '#',
     'Explore Prime Video'
 );
+
 INSERT INTO main_contents(
     user_pk, category_pk, img_url, tag_content, tag_color, title,
     content, link, link_title
@@ -209,6 +229,7 @@ VALUES(
     '#',
     'Explore Twitch Prime'
 );
+
 INSERT INTO main_contents(
     user_pk, category_pk, img_url, tag_content, tag_color, title,
     content, link, link_title
@@ -239,6 +260,7 @@ VALUES(
     '#',
     'Explore Amazon Originals'
 );
+
 INSERT INTO main_contents(
     user_pk, category_pk, img_url, tag_content, tag_color, title,
     content, link, link_title
@@ -255,7 +277,6 @@ VALUES(
     'Explore Prime Delivery'
 );
 
-// 메인 컨텐츠 추가 - Shop
 INSERT INTO main_contents(
     user_pk, category_pk, img_url, tag_content, tag_color, title,
     content, link, link_title
@@ -286,6 +307,7 @@ VALUES(
     '#',
     'Learn more about Alexa and Prime'
 );
+
 INSERT INTO main_contents(
     user_pk, category_pk, img_url, tag_content, tag_color, title,
     content, link, link_title
@@ -301,6 +323,7 @@ VALUES(
     '#',
     'Shop Prime Member Exclusives'
 );
+
 INSERT INTO main_contents(
     user_pk, category_pk, img_url, tag_content, tag_color, title,
     content, link, link_title
@@ -317,7 +340,6 @@ VALUES(
     'Explore Family Supplies'
 );
 
-// 메인 컨텐츠 추가 - Read
 INSERT INTO main_contents(
     user_pk, category_pk, img_url, tag_content, tag_color, title,
     content, link, link_title
@@ -333,6 +355,7 @@ VALUES(
     '#',
     'Explore Prime Reading'
 );
+
 INSERT INTO main_contents(
     user_pk, category_pk, img_url, tag_content, tag_color, title,
     content, link, link_title
@@ -349,7 +372,6 @@ VALUES(
     'Learn more about Amazon First Reads'
 );
 
-// 메인 컨텐츠 추가 - More
 INSERT INTO main_contents(
     user_pk, category_pk, img_url, tag_content, tag_color, title,
     content, link, link_title
