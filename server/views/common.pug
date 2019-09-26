@@ -15,7 +15,8 @@ header
             div(class='header__user__info') Welcome! #{userName}
         else
             div(class='header__user__info') Welcome!
-        div(class='header__menu')
-            div(class='menu__button password') Change Password
-            div(class='menu__button logout') logout
+        if userName
+            div(class='header__menu')
+                div(class='menu__button password') Change Password
+                div(class='menu__button logout') logout
 block section

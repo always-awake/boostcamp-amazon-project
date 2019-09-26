@@ -1,4 +1,7 @@
+import { setHeaderEvent } from './common.js';
+
 window.onload = () => {
+  setHeaderEvent();
   setLoginEvent();
 };
 

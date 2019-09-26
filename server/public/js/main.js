@@ -1,10 +1,11 @@
+import { setHeaderEvent } from './common.js';
+
 window.onload = () => {
   setMainEvent();
+  setHeaderEvent();
 };
 
-
 const setMainEvent = () => {
-  console.log('메인')
   const database = document.querySelector('.database');
   const tableList = database.querySelector('.table__list');
   tableList.addEventListener('click', (e) => {
