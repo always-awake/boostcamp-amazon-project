@@ -4,6 +4,7 @@ window.onload = () => {
 
 
 const setMainEvent = () => {
+  console.log('메인')
   const database = document.querySelector('.database');
   const tableList = database.querySelector('.table__list');
   tableList.addEventListener('click', (e) => {
@@ -12,10 +13,5 @@ const setMainEvent = () => {
       window.location.href = `http://localhost:3000/admin/${tableName}`;
     }
   });
-
-  const headerTitle = document.querySelector('.header__title');
-  headerTitle.addEventListener('click', () => {
-    window.location.href = `http://localhost:3000/admin/main`;
-  })
 };
 

@@ -1,28 +1,26 @@
-doctype html
-head
-    meta(charset='UTF-8')
-    meta(name='viewport' content='width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0')
-    meta(http-equiv='X-UA-Compatible' content='ie=edge')
+extends common
+
+block style
     style
         include ../public/css/login.css
+block scripts
+    script(src='/js/common.js')
     script(src='/js/login.js')
+block title
     title Log in | Amazon Admin
-header
-    div(class='header__title') Amazon Administration
-    div(class='header__content')
-        div(class='header__user__info') Welcome!
-section(class="login__section")
-    div(class="form__title") Amazon Administration
-    form(class="login__form" action="/admin/login" method="POST")
-        if errorMsg !== null
-            div(class="error__msg")=errorMsg
-        div(class="input__title") User Id:
-        div(class="input")
-            input(name="id")
-        div(class="input__title") Password:
-        div(class="input")
-            input(name="password")
-        div(class="buttons")
-            div(class="login__button") Log in
-            div(class="signup__link") Sign up
+block section
+    section(class="login__section")
+        div(class="form__title") Amazon Administration
+        form(class="login__form" action="/admin/login" method="POST")
+            if errorMsg !== null
+                div(class="error__msg")=errorMsg
+            div(class="input__title") User Id:
+            div(class="input")
+                input(name="id")
+            div(class="input__title") Password:
+            div(class="input")
+                input(name="password")
+            div(class="buttons")
+                div(class="login__button") Log in
+                div(class="signup__link") Sign up
 

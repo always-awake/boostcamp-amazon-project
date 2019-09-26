@@ -1,6 +1,3 @@
-@import "/css/common.css";
-@import "/css/login.css";
-
 .signup__section {
   display: flex;
   flex-direction: column;

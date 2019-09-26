@@ -2,23 +2,19 @@ extends common
 
 block style
     style
-        include ../public/css/signup.css
-    style
-        include ../public/css/login.css
+        include ../public/css/detail.css
 block scripts
     script(src='/js/common.js')
-    script(src='/js/signup.js')
+    script(src='/js/detail.js')
 block title
     title Amazon Admin
 block section
-    section(class="signup__section")
+    section(class="detail__section")
         div(class="form__title") Admin Sign up
         form(class="login__form" action="/admin/login" method="POST")
             div(class="input__title") User Id:
             div(class="input")
                 input(name="id")
-                //if errorMsg !== null
-                //    div(class="error__msg")=errorMsg
             div(class="input__title") Password:
             div(class="input")
                 input(name="password")
