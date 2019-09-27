@@ -1,6 +1,16 @@
+/*Reset Basic Css*/
+input[type="search"] {
+  -webkit-appearance: none;
+}
+
+::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
+
 .header__user__info {
   margin-right: 5rem;
 }
+
 .login__section {
   display: flex;
   flex-direction: column;
@@ -10,29 +20,32 @@
 .login__form {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   width: 40rem;
+
   border: 0.1rem solid #EAEAEA;
 }
 
 .form__title {
+  display: flex;
+  justify-content: center;
+  line-height: 5rem;
   width: 40.2rem;
   height: 5rem;
+
   font-size: 2rem;
   color: white;
   background-color: #232F3E;
-  display: flex;
-  line-height: 5rem;
-  justify-content: center;
 }
 
 .input__title  {
   display: flex;
-  font-size: 1.5rem;
-  width: 35rem;
-  margin-bottom: 1rem;
   margin-top: 4rem;
+  margin-bottom: 1rem;
+  width: 35rem;
+
+  font-size: 1.5rem;
 }
 
 .input {
@@ -57,14 +70,6 @@
 
 .input input:focus {
   border: 0.05rem solid #232F3E;
-}
-
-input[type="search"] {
-  -webkit-appearance: none;
-}
-
-::-webkit-search-cancel-button {
-  -webkit-appearance: none;
 }
 
 .buttons {

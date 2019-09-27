@@ -1,0 +1,109 @@
+.add__section {
+  display: flex;
+  flex-direction: column;
+}
+
+.add__title {
+  display: flex;
+  flex-direction: row;
+  margin-top: 3rem;
+  margin-bottom: 1.5rem;
+
+  font-size: 2.4rem;
+  font-weight: lighter;
+  color: #232F3E;
+}
+
+.tableName {
+  margin-left: 1rem;
+  font-weight: bolder;
+}
+
+.add__sub__title {
+  width: 104rem;
+  height: 3.5rem;
+
+  background-color: #232F3E;
+}
+
+.add__sub__title .title {
+  margin-left: 1.5rem;
+  line-height: 3.5rem;
+
+  font-size: 1.5rem;
+  color: white;
+}
+
+.add__form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+}
+
+.form__field {
+  display: flex;
+  flex-direction: row;
+  line-height: 5rem;
+  width: 104rem;
+  min-height: 5rem;
+
+  border-bottom: 0.1rem solid #EEEEEE;
+}
+
+.form__field input {
+  width: 34rem;
+  height: 3rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.field__title {
+  margin-left: 2rem;
+  width: 17rem;
+
+  font-size: 1.5rem;
+  font-weight: bolder;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  width: 104rem;
+  height: 3.5rem;
+  margin-bottom: 10rem;
+
+  line-height: 3.5rem;
+}
+
+.button {
+  text-align: center;
+  margin-top: 2.6rem;
+  width: 7rem;
+  height: 4rem;
+
+  font-size: 1.5rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  line-height: 4rem;
+  color: white;
+}
+
+.button__group {
+  width: 15rem;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-right: 1rem;
+}
+
+.add {
+  background-color: #FFA525;
+}
+
+.back {
+  margin-left: 1rem;
+  background-color: #232F3E;
+}

@@ -1,10 +1,10 @@
 .database__title {
   width: 60rem;
   height: 3rem;
-  background-color: #37475A;
-  color: white;
-  line-height: 3rem;
   margin-top: 10rem;
+  line-height: 3rem;
+  color: white;
+  background-color: #37475A;
 }
 
 .title {
@@ -20,11 +20,13 @@
   display: flex;
   width: 60rem;
   height: 4rem;
-  color: #4D6989;
   font-size: 1.5rem;
-  border-bottom: 1px solid #EEEEEE;
   line-height: 4rem;
+
+  color: #4D6989;
+  border-bottom: 1px solid #EEEEEE;
 }
+
 .table__name {
   margin-left: 1rem;
   font-weight: bolder;

@@ -10,10 +10,11 @@
   width: 7rem;
   height: 4rem;
   font-size: 1.5rem;
-  color: white;
-  background-color: #232F3E;
   border-radius: 0.5rem;
   margin-top: 2.6rem;
-  cursor: pointer;
   margin-bottom: 2.5rem;
+
+  cursor: pointer;
+  color: white;
+  background-color: #232F3E;
 }
