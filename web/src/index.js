@@ -1,9 +1,13 @@
 import './style.sass';
-import MiniCarousel from './views/MiniCarousel';
-import MainCarousel from './views/MainCarousel';
+import { Index } from './components/index/Index';
+import { MiniCarousel } from './components/mini-carousel/MiniCarousel';
+import { MainCarousel } from './components/main-carousel/MainCarousel';
 
 window.onload = () => {
-  const maincarousel = new MainCarousel.MainCarousel('main_carousel_article');
-  const miniCarousel = new MiniCarousel.MiniCarousel('mini_carousel_article');
-  miniCarousel.makeCarousel();
+  const index = new Index();
+  index.init();
+  const mainCarousel = new MainCarousel('main_carousel_article');
+  mainCarousel.init();
+  const miniCarousel = new MiniCarousel('mini_carousel_article');
+  miniCarousel.init();
 };
