@@ -1,4 +1,10 @@
-const { dataUpdateQuery, getTableFieldList } = require('./utils/query.js');
+const {
+  dataUpdateQuery,
+  getTableFieldList,
+  getTableList,
+  getSingleData,
+  getTable
+} = require('./utils/query.js');
 const dbConfig = require('../config/db.js');
 const express = require('express');
 const router = express.Router();
@@ -76,7 +82,7 @@ router.get('/logout', (req, res) => {
  */
 router.get('/main', (req, res) => {
   if (req.user !== undefined) {
-    connection.query('SHOW TABLES;', function(err, rows) {
+    connection.query(getTableList(), function(err, rows) {
       const tableList = [];
       if (!err) {
         const databaseInfo = Object.keys(rows[0])[0];
@@ -168,7 +174,7 @@ router.post('/:tableName/new', upload.single('uploadImg'), (req, res) => {
 router.get('/:tableName/:pk', (req, res) => {
   const { tableName, pk } = req.params;
   if (req.user !== undefined) {
-    connection.query(`SELECT * FROM ${tableName} WHERE pk=${pk};`, function(err, row) {
+    connection.query(getSingleData(tableName, pk), function(err, row) {
       if (!err) {
         res.render('detail', {
           tableName: tableName,
@@ -207,21 +213,25 @@ router.post('/:tableName/:pk', (req, res) => {
  * request param의 테이블 이름으로 조회
  */
 router.get('/:tableName', (req, res) => {
-  const { tableName } = req.params;
-  connection.query(`SELECT * FROM ${tableName};`, function(err, rows) {
-    if (!err) {
-      const fieldList = Object.keys(rows[0]);
-      res.render('table', {
-        tableName: tableName,
-        fieldList: fieldList,
-        dataList: rows,
-        dataLength: rows.length,
-        userName: req.user.name,
-      });
-} else {
-      console.log('데이터베이스 오류: ', err);
-    }
-  });
+  if (req.user !== undefined) {
+    const { tableName } = req.params;
+    connection.query(getTable(tableName), function(err, rows) {
+      if (!err) {
+        const fieldList = Object.keys(rows[0]);
+        res.render('table', {
+          tableName: tableName,
+          fieldList: fieldList,
+          dataList: rows,
+          dataLength: rows.length,
+          userName: req.user.name,
+        });
+      } else {
+        console.log('데이터베이스 오류: ', err);
+      }
+    });
+  } else {
+    res.send('허용되지 않은 접근');
+  }
 });
 
 module.exports = router;
