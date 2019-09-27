@@ -80,7 +80,7 @@ class Carousel  {
         this.activeContentIndex = -1;
       }
 
-      this.cards.setPrevActiveByIndex(this.activeContentIndex); // Dot과 Card 설정
+      this.cards.setPrevActiveByIndex(this.activeContentIndex);
       this.activeContent = this.contents[this.activeContentIndex += 1];
       this.cards.activateCard(this.activeContentIndex)
     });
