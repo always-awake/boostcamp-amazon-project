@@ -1,0 +1,32 @@
+extends common
+
+block style
+    style
+        include ../public/css/add.css
+block scripts
+    script(src='/js/add.js' type="module")
+block title
+    title Amazon Admin
+block section
+    section(class="add__section")
+        div(class="add__title") Add
+            div(class="tableName") #{tableName}
+        div(class="add__sub__title")
+            div(class="title") Field List
+        form(class="add__form" action='/admin/' + tableName + '/new' method="POST" enctype="multipart/form-data")
+            each field in fields
+                if field.includes('img')
+                    div(class="form__field")
+                        div(class="field__title") image
+                        input(type="file" name="uploadImg")
+                else
+                    div(class="form__field")
+                        div(class="field__title")=field
+                        if field === 'is_superuser'
+                            input(name="is_superuser" type="checkbox" class="field__input__super")
+                        else
+                            input(name=`${field}`, class="field__input")
+            div(class="buttons")
+                    div(class="button add") ADD
+                    div(class="button back") BACK
+

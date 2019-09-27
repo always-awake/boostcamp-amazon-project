@@ -18,7 +18,8 @@ const miniData = {
       text: `Prime Video is the only place where you can watch Amazon
              Original series like "The Marvelous Mrs. Maisel", "Tom Clancy's
              Jack Ryan", "Homecoming", and "The Man in the High Castle".`,
-      link_title: `Explore Prime Video`
+      link_title: `Explore Prime Video`,
+      link: '#'
   }
 };
 

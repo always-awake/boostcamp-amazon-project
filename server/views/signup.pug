@@ -1,0 +1,28 @@
+extends common
+
+block style
+    style
+        include ../public/css/signup.css
+    style
+        include ../public/css/login.css
+block scripts
+    script(src='/js/signup.js' type="module")
+block title
+    title Amazon Admin
+block section
+    section(class="signup__section")
+        div(class="form__title") Admin Sign up
+        form(class="login__form" action="/admin/login" method="POST")
+            div(class="input__title") User Id:
+            div(class="input")
+                input(name="id")
+                //if errorMsg !== null
+                //    div(class="error__msg")=errorMsg
+            div(class="input__title") Password:
+            div(class="input")
+                input(name="password")
+            div(class="input__title") Confirm Password:
+            div(class="input")
+                input(name="re_password")
+            div(class="signup__button") Sign up
+

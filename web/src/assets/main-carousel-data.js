@@ -81,8 +81,8 @@ const mainData = {
         imgUrl: 'https://images-na.ssl-images-amazon.com/images/G/01/marketing/prime/detail_page/Card_B05._CB514650828_.jpg',
         tagContent: 'AUDIBLE CHANNELS',
         tagColor: '#FF6137',
-        title: `Fast, FREE delivery on over 100 <br> million items`,
-        content: `Super-fast delivery, tens of millions of items, and <br> flexible delivery options to fit your life.`,
+        title: `Fast, FREE delivery on over 100 million items`,
+        content: `Super-fast delivery, tens of millions of items, and flexible delivery options to fit your life.`,
         link: '#',
         linkTitle: 'Explore Prime Delivery'
       }
@@ -94,14 +94,13 @@ const mainData = {
         imgUrl: 'https://images-na.ssl-images-amazon.com/images/G/01/marketing/prime/detail_page/Card_C06._CB495022579_.jpg',
         tagContent: 'PRIME AT WHOLE FOODS MARKET',
         tagColor: '#E32064',
-        title: `Fast, FREE delivery on over 100 <br> million items`,
-        content: `Super-fast delivery, tens of millions of items, and <br> flexible delivery options to fit your life.`,
+        title: `Fast, FREE delivery on over 100 million items`,
+        content: `Super-fast delivery, tens of millions of items, and flexible delivery options to fit your life.`,
         link: '#',
         linkTitle: 'Explore Prime Delivery'
       },
       {
-        imgUrl: '\n' +
-            'https://images-na.ssl-images-amazon.com/images/G/01/marketing/prime/detail_page/Card_C01_revised._CB502880131_.jpg',
+        imgUrl: 'https://images-na.ssl-images-amazon.com/images/G/01/marketing/prime/detail_page/Card_C01_revised._CB502880131_.jpg',
         tagContent: 'ALEXA VOICE SHOPPING',
         tagColor: '#E32064',
         title: `The simplest way to shop. Just ask Alexa.`,

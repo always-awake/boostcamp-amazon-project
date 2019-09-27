@@ -2,16 +2,16 @@ const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 const session = require("express-session");
 const redisStore = require('connect-redis')(session);
 const redis = require('redis');
 const passport = require("passport");
-const logger = require('morgan');
 const flash = require('connect-flash');
-
 const passportConfig = require("./config/passport");
 
-const userRouter = require('./routes/users');
+// router
+const carouselRouter = require('./routes/carousels');
 const adminRouter = require('./routes/admin');
 
 const app = express();
@@ -26,6 +26,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser('user-auth-cookie'));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/media', express.static('media'));
 
 // session - redis
 const client = redis.createClient(6379, 'localhost');
@@ -36,7 +37,7 @@ app.use(session({
   expires: new Date(Date.now() + 10000),
   store: new redisStore({
     client: client,
-    ttl: 200,
+    ttl: 60*60*60,
   }),
 }));
 
@@ -49,7 +50,7 @@ app.use(passport.session());
 passportConfig(passport);
 
 // router
-app.use('/users', userRouter);
+app.use('/carousels', carouselRouter);
 app.use('/admin', adminRouter);
 
 // catch 404 and forward to error handler

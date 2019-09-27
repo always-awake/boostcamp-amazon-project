@@ -17,6 +17,13 @@ npm install
 
 * Github: [@always-awake](https://github.com/always-awake)
 
+## nCloud 배포 Ip 주소
+```
+http://210.89.188.136/admin
+```
+- test ID: user1
+- test PW: admin12345
+
 ## Show your support
 
 Give a ⭐️ if this project helped you!

@@ -76,8 +76,6 @@ class Cards {
       dotIndex = 0;
     }
     this.prevActiveDot  = this.dots[dotIndex];
-    console.log('====')
-    console.log(this.prevActiveDot)
     const cardWrapper = this.prevActiveDot.parentNode.parentNode;
     this.activeCard = cardWrapper.querySelector('.card');
   }

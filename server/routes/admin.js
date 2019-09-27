@@ -1,44 +1,88 @@
+const {
+  dataUpdateQuery,
+  getTableFieldList,
+  getTableList,
+  getSingleData,
+  getTable
+} = require('./utils/query.js');
 const dbConfig = require('../config/db.js');
 const express = require('express');
 const router = express.Router();
 const mysql = require('mysql2');
-const passport = require('passport');
-
 const connection = mysql.createPool(dbConfig);
-
-router.get('/', function(req, res) {
-  console.log(req)
-  res.send('어드민 페이지');
+const passport = require('passport');
+const multer = require('multer');
+const upload = multer({
+  storage: multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'media/static_root');
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.originalname);
+    }
+  }),
 });
 
-// 로그인 페이지
-router.get('/login', function(req, res) {
+/**
+ * 유저의 로그인 여부에 따라 다른 화면 렌더링
+ */
+router.get('/', (req, res) => {
+  (req.user !== undefined) ?
+      res.redirect('/admin/main') : res.redirect('admin/login');
+});
+
+/**
+ * 회원 가입 폼 렌더링
+ */
+router.get('/accounts', (req, res) => {
+  let errorMsg = null;
+  res.render('signup', {errorMsg: errorMsg});
+});
+
+/**
+ * 로그인 폼 렌더링
+ */
+router.get('/login', (req, res) => {
   const { error } = req.flash();
   let errorMsg = null;
   if (error) {
     errorMsg = error[0];
+    if (errorMsg === 'Missing credentials') {
+      errorMsg = '아이디 또는 비밀번호를 다시 입력해주세요.'
+    }
   }
   res.render('login', {errorMsg: errorMsg});
 });
 
+/**
+ * 로그인
+ * passport 모듈 사용
+ */
 router.post('/login', passport.authenticate('local', {
   successRedirect: '/admin/main',
   failureRedirect: '/admin/login',
   failureFlash: true,
-  successFlash:true
 }));
 
-router.get('/logout', function(req, res) {
+/**
+ * 로그아웃
+ * passport 모듈 사용
+ * 로그아웃이 성공적으로 완료되면 로그인 폼 렌더링
+ */
+router.get('/logout', (req, res) => {
   req.logout();
   req.session.save(() => {
     res.redirect('/admin/login');
   })
 });
 
-// 메인화면
-router.get('/main', function(req, res) {
+/**
+ * 메인화면 렌더링
+ * 데이터 베이스 내 테이블에 따라 동적으로 화면 렌더링
+ */
+router.get('/main', (req, res) => {
   if (req.user !== undefined) {
-    connection.query('SHOW TABLES;', function(err, rows) {
+    connection.query(getTableList(), function(err, rows) {
       const tableList = [];
       if (!err) {
         const databaseInfo = Object.keys(rows[0])[0];
@@ -46,129 +90,148 @@ router.get('/main', function(req, res) {
         for (let table of rows) {
           tableList.push(table[databaseInfo]);
         }
-        res.render('main', {tableList: tableList, databaseName: databaseName, userName: req.user.name});
+        res.render('main', {
+          tableList: tableList,
+          databaseName: databaseName,
+          userName: req.user.name
+        });
       } else {
-        console.log('Error while performing Query.', err);
+        console.log('데이터베이스 오류: ', err);
       }
     });
   } else {
-    res.send('허용되지 않은 접근임');
+    res.send('허용되지 않은 접근');
   }
 });
 
-// 각 테이블 조회 (by table name)
-router.get('/:tableName', function(req, res) {
-  const tableName = req.params.tableName;
-  connection.query(`SELECT * FROM ${tableName};`, function(err, rows) {
-    if (!err) {
-      const fieldList = Object.keys(rows[0]);
-      res.render('table', {tableName: tableName, fieldList: fieldList, dataList: rows, dataLength: rows.length});
-} else {
-      console.log('Error while performing Query.', err);
-    }
-  });
+/**
+ * 새로운 데이터 생성 폼 렌더링
+ * 각 데이터의 구조(필드 수)에 따라 유동적 변경된 폼 렌더링
+ */
+router.get('/:tableName/new', (req, res) => {
+  if (req.user !== undefined) {
+    const { tableName } = req.params;
+    connection.query(getTableFieldList(tableName), function(err, columns) {
+      if (!err) {
+        const fields = [];
+        for (let column of columns) {
+          if (!column['COLUMN_NAME'].includes('pk'))
+            fields.push(column['COLUMN_NAME'])
+        }
+        res.render('add', {
+          tableName: tableName,
+          fields: fields,
+          userName: req.user.name,
+        });
+      } else {
+        console.log('데이터베이스 오류: ', err);
+      }
+    });
+  } else {
+    res.send('허용되지 않은 접근');
+  }
+
 });
 
-// 유저 목록 조회
-router.get('/users', function(req, res) {
-  connection.query(`SELECT pk, id, name, is_superuser FROM users;`, function(err, rows) {
-    if (!err) {
-      console.log('The solution is: ', rows);
-      res.send(rows);
+/**
+ * 새로운 데이터 생성 - 미완성
+ */
+router.post('/:tableName/new', upload.single('uploadImg'), (req, res) => {
+  if (req.user !== undefined) {
+    const { tableName } = req.params;
+    const fieldList = Object.keys(tableName);
+    const userPk = req.user.pk;
+
+    let query = '';
+    if (tableName === 'users') {
+      console.log('유저 생성');
+      console.log(req.body);
+
+    } else if (req.file) {
+      console.log('사진이 포함된 데이터 생성');
+      const uploadImg = req.file;
+      const imgUrl = uploadImg.path;
+      const fieldList = Object.keys(req.body);
+      let subQuery = '';
+      let fieldListQuery = '';
+
+      // 필드 리스트 쿼리 부분 생성
+      for (let field of fieldList) {
+        fieldListQuery += `${field}, `;
+      }
+      fieldListQuery = fieldListQuery.substring(0, fieldListQuery.length - 2);
+      console.log(subQuery.substring(0, subQuery.length -2));
     } else {
-      console.log('Error while performing Query.', err);
+      console.log('사진이 포함되지 않고, 유저가 아닌 데이터 생성');
     }
-  });
+  }
 });
 
-// 개별 유저 목록 조회
-router.get('/users/:pk', function(req, res) {
-  const userPk = req.params.pk;
-  connection.query(`SELECT * FROM users WHERE pk=${userPk};`, function(err, rows) {
-    if (!err) {
-      console.log('The solution is: ', rows);
-      res.send(rows);
-    } else {
-      console.log('Error while performing Query.', err);
-    }
-  });
+/**
+ * 개별 데이터 조회
+ * request param의 테이블 이름, 개별 데이터의 pk로 조회
+ */
+router.get('/:tableName/:pk', (req, res) => {
+  const { tableName, pk } = req.params;
+  if (req.user !== undefined) {
+    connection.query(getSingleData(tableName, pk), function(err, row) {
+      if (!err) {
+        res.render('detail', {
+          tableName: tableName,
+          fields: Object.keys(row[0]),
+          data: row[0],
+          userName: req.user.name,
+        });
+      } else {
+        console.log('데이터베이스 오류: ', err);
+      }
+    });
+  } else {
+    res.send('허용되지 않은 접근');
+  }
 });
 
-// 카테고리 목록
-router.get('/main/categories', function(req, res) {
-  connection.query(`SELECT * FROM card_categories;`, function(err, rows) {
-    if (!err) {
-      console.log('The solution is: ', rows);
-      res.send(rows);
-    } else {
-      console.log('Error while performing Query.', err);
-    }
-  });
+/**
+ * 개별 데이터 수정
+ */
+router.post('/:tableName/:pk', (req, res) => {
+  if (req.user !== undefined) {
+    connection.query(dataUpdateQuery(req.params, req.body), function(err, row) {
+      if (!err) {
+        res.redirect(`/admin/${req.params.tableName}`);
+      } else {
+        console.log('데이터베이스 오류: ', err);
+      }
+    });
+  } else {
+    res.send('허용되지 않은 접근');
+  }
 });
 
-// 미니 컨텐츠 목록
-router.get('/mini/contents', function(req, res) {
-  connection.query(`SELECT * FROM mini_contents`, function(err, rows) {
-    if (!err) {
-      console.log('The solution is: ', rows);
-      res.send(rows);
-    } else {
-      console.log('Error while performing Query.', err);
-    }
-  });
+/**
+ * 각 테이블 조회
+ * request param의 테이블 이름으로 조회
+ */
+router.get('/:tableName', (req, res) => {
+  if (req.user !== undefined) {
+    const { tableName } = req.params;
+    connection.query(getTable(tableName), function(err, rows) {
+      if (!err) {
+        const fieldList = Object.keys(rows[0]);
+        res.render('table', {
+          tableName: tableName,
+          fieldList: fieldList,
+          dataList: rows,
+          dataLength: rows.length,
+          userName: req.user.name,
+        });
+      } else {
+        console.log('데이터베이스 오류: ', err);
+      }
+    });
+  } else {
+    res.send('허용되지 않은 접근');
+  }
 });
-
-// 개별 미니 개별 컨텐츠 조회
-router.get('/mini/contents/:pk', function(req, res) {
-  const contentPk = req.params.pk;
-  connection.query(`SELECT * FROM mini_contents WHERE pk=${contentPk};`, function(err, rows) {
-    if (!err) {
-      console.log('The solution is: ', rows);
-      res.send(rows);
-    } else {
-      console.log('Error while performing Query.', err);
-    }
-  });
-});
-
-// 미니 텍스트 목록
-router.get('/mini/text', function(req, res) {
-  connection.query(`SELECT * FROM mini_text`, function(err, rows) {
-    if (!err) {
-      console.log('The solution is: ', rows);
-      res.send(rows);
-    } else {
-      console.log('Error while performing Query.', err);
-    }
-  });
-});
-
-// 메인 컨텐츠 목록
-router.get('/main/contents', function(req, res) {
-  connection.query(`SELECT * FROM main_contents`, function(err, rows) {
-    if (!err) {
-      console.log('The solution is: ', rows);
-      res.send(rows);
-    } else {
-      console.log('Error while performing Query.', err);
-    }
-  });
-});
-
-// 개별 메인 컨텐츠 목록
-router.get('/main/contents/:pk', function(req, res) {
-  const contentPk = req.params.pk;
-  connection.query(`SELECT * FROM main_contents WHERE pk=${contentPk};`, function(err, rows) {
-    if (!err) {
-      console.log('The solution is: ', rows);
-      res.send(rows);
-    } else {
-      console.log('Error while performing Query.', err);
-    }
-  });
-});
-
-
-
 
 module.exports = router;

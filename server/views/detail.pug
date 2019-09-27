@@ -1,0 +1,38 @@
+extends common
+
+block style
+    style
+        include ../public/css/detail.css
+block scripts
+    script(src='/js/detail.js' type="module")
+block title
+    title Amazon Admin
+block section
+    section(class="detail__section")
+        div(class="detail__title") Change
+            div(class="tableName") #{tableName}
+        div(class="detail__sub__title")
+            div(class="title") Field List
+        form(class="detail__form" action='/admin/' + tableName + '/' + data['pk'] method="POST")
+            each field in fields
+                div(class="form__field")
+                    div(class="field__title")=field
+                    if field.includes('pk')
+                        div(class="field__no__input")=data[field]
+                    else if field === 'is_superuser'
+                        if data[field]
+                            input(name="is_superuser" type="checkbox" class="field__input__super" checked)
+                        else
+                            input(name="is_superuser" type="checkbox" class="field__input__super" unchecked)
+                    else if data[field].length <= 40
+                        div(class="field__input__short")
+                            input(name=field value=data[field])
+                    else if data[field].length > 40
+                        div(class="field__input__long")
+                            textarea(name=field contenteditable="true" type="text")=data[field]
+            div(class="detail__buttons")
+                div(class="button delete") DELETE
+                div(class="button__group")
+                    div(class="button save") PUT
+                    div(class="button back") BACK
+

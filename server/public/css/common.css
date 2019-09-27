@@ -21,9 +21,9 @@ header {
 }
 
 .header__title {
-  font-size: 2.5rem;
   margin-left: 5rem;
   line-height: 5rem;
+  font-size: 2.5rem;
   cursor: pointer;
 }
 
@@ -33,19 +33,19 @@ header {
 }
 
 .header__user__info {
-  font-size: 1.5rem;
   line-height: 5rem;
-  color: #FFA624;
+  font-size: 1.5rem;
   font-weight: bolder;
+  color: #FFA624;
 }
 
 .header__menu {
   display: flex;
   flex-direction: row;
-  font-size: 1.5rem;
   margin-left: 1rem;
   margin-right: 5rem;
   line-height: 5rem;
+  font-size: 1.5rem;
 }
 
 .menu__button.logout {
@@ -54,6 +54,6 @@ header {
 }
 
 .menu__button.logout:hover {
-  color: #FFA624;
   text-decoration: underline;
+  color: #FFA624;
 }

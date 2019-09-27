@@ -1,0 +1,166 @@
+/*Reset Basic Css*/
+textarea {
+  border: none;
+  overflow: auto;
+  outline: none;
+
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+
+  resize: none;
+}
+
+.detail__section {
+  display: flex;
+  flex-direction: column;
+}
+
+.detail__title {
+  display: flex;
+  flex-direction: row;
+  margin-top: 3rem;
+  margin-bottom: 1.5rem;
+
+  font-size: 2.4rem;
+  font-weight: lighter;
+  color: #232F3E;
+}
+
+.tableName {
+  margin-left: 1rem;
+  font-weight: bolder;
+}
+
+.detail__sub__title {
+  width: 104rem;
+  height: 3.5rem;
+
+  background-color: #232F3E;
+}
+
+.detail__sub__title .title {
+  margin-left: 1.5rem;
+  line-height: 3.5rem;
+
+  font-size: 1.5rem;
+  color: white;
+}
+
+.detail__form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+}
+
+.form__field {
+  display: flex;
+  flex-direction: row;
+  line-height: 5rem;
+  width: 104rem;
+  min-height: 5rem;
+
+  border-bottom: 0.1rem solid #EEEEEE;
+}
+
+.field__title {
+  margin-left: 2rem;
+  width: 17rem;
+
+  font-size: 1.5rem;
+  font-weight: bolder;
+}
+
+.field__no__input {
+  width: 28rem;
+  height: 3rem;
+  line-height: 3rem;
+
+  font-size: 1.5rem;
+}
+
+.field__input__long {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  width: 50rem;
+  height: 12rem;
+}
+
+.field__input__long textarea {
+  display: flex;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  width: 50rem;
+  height: 12rem;
+
+  white-space: pre-line;
+  font-size: 1.5rem;
+  border-radius: 0.5rem;
+  border: 0.1rem solid #BFBFBF;
+}
+
+.field__input__short {
+  width: 28rem;
+  height: 5rem;
+  margin-top: 0.5rem;
+  border-radius: 2rem;
+}
+
+.field__input__short input {
+  padding-left: 1rem;
+  width: 28rem;
+  height: 3rem;
+
+  font-size: 1.5rem;
+  border-radius: 0.5rem;
+  border: 0.1rem solid #BFBFBF;
+}
+
+.detail__buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 104rem;
+  height: 3.5rem;
+  margin-bottom: 10rem;
+
+  line-height: 3.5rem;
+}
+
+.button {
+  text-align: center;
+  margin-top: 2.6rem;
+  width: 7rem;
+  height: 4rem;
+
+  font-size: 1.5rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  line-height: 4rem;
+  color: white;
+}
+
+.delete {
+  margin-left: 1rem;
+  background-color: #BA2121;
+}
+
+.button__group {
+  width: 15rem;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-right: 1rem;
+}
+
+.save {
+  background-color: #232F3E;
+}
+
+.back {
+  background-color: #232F3E;
+}
+
+.field__input__super {
+  margin-top: 1.8rem;
+}
