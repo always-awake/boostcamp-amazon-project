@@ -1,36 +1,57 @@
-<h1 align="center">Welcome to Amazon-web 👋</h1>
+<h1 align="center">아마존 캐로셀 클론 프로젝트 📦</h1>
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
 </p>
 
-> Make Amazon Prime Web-Front
+> Amazon 캐로셀 클론 프로젝트
 
-## Install
-
-```sh
-npm install
-```
-
-## Author
+## 프로젝트 개발자
 
 👤 **이미림(always-awake)**
 
 * Github: [@always-awake](https://github.com/always-awake)
 
-## nCloud 배포 Ip 주소
+
+## 폴더 및 주요 소스 파일 구조
+### server (express generator 사용)
 ```
-http://210.89.188.136/admin
+2_clone_amazon_carousel
+└── server
+    └── bin
+    └── config
+        └── db.js
+        └── passport.js
+    └── public
+        └── css
+        └── images
+        └── js
+    └── routes
+    └── views (pug 템플릿 엔진 사용)
+    └── app.js
 ```
-- test ID: user1
-- test PW: admin12345
 
-## Show your support
+### client(web)
+```
+2_clone_amazon_carousel
+└── web
+    └── images
+    └── src
+        └── assets
+            └── main-carousel-data.js
+            └── mini-carousel-data.js
+        └── compnents
+            └── commons
+            └── main-carousel
+            └── mini-carousel
+        └── utils
+        └── index.html
+        └── index.js
+        └── style.sass
+    └── .babelrc
+    └── .eslintrc.js
+    └── webpack.config.js
+```
 
-Give a ⭐️ if this project helped you!
+## 이슈 관리
+- [아마존 캐로셀 클론 프로젝트 issues page](https://github.com/always-awake/membership-amazon/issues)
 
-<a href="https://www.patreon.com/Boostcamp">
-  <img src="https://c5.patreon.com/external/logo/become_a_patron_button@2x.png" width="160">
-</a>
-
-***
-_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
